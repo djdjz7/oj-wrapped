@@ -375,7 +375,7 @@ const result_class_map = {
   height: 100dvh;
   padding: 4em;
   box-sizing: border-box;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .emphasis {
