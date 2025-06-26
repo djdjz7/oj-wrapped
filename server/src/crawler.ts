@@ -55,7 +55,7 @@ export const crawl = async (email: string, password: string, year: number) => {
         execution_time: Number($(row).find(".spening-time").text().trim().slice(0, -2).trim()),
         code_length: Number($(row).find(".code-length").text().trim().slice(0, -2).trim()),
         language: $(row).find(".language").text().trim(),
-        submission_time: new Date($(row).find(".date abbr").attr("title")!.trim()),
+        submission_time,
       }
       submissions.push(submission)
     }
