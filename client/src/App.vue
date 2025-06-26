@@ -245,7 +245,8 @@ const status = ref<"login" | "loading" | "report">("login")
 const email = ref("")
 const password = ref("")
 const error = ref()
-const server = treaty<ElysiaApp>("http://localhost:3000/api/", {})
+const server_location = new URL("/api/", window.location.href)
+const server = treaty<ElysiaApp>(server_location.href, {})
 const report = ref<Awaited<ReturnType<(typeof server)["get-report"]["post"]>>["data"]>()
 const result_stats = computed(() => {
   if (!report.value) return []
