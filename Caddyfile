@@ -1,0 +1,11 @@
+:3000 {
+    handle /api/* {
+        uri strip_prefix /api
+        reverse_proxy http://localhost:2025
+    }
+
+    handle {
+        root ./client/dist/
+        file_server
+    }
+}
