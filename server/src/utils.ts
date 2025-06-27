@@ -99,4 +99,17 @@ export class Linq {
     }
     return cur_max
   }
+
+  static min = <T>(arr: T[], key: (_: T) => number) => {
+    let cur_min: undefined | T = undefined
+    let cur_min_value: undefined | number = undefined
+    for (const item of arr) {
+      const value = key(item)
+      if (cur_min_value === undefined || value < cur_min_value) {
+        cur_min = item
+        cur_min_value = value
+      }
+    }
+    return cur_min
+  }
 }

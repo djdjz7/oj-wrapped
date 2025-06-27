@@ -52,7 +52,7 @@ export const crawl = async (email: string, password: string, year: number) => {
         problem_name,
         result: $(row).find(".result").text().trim(),
         execution_memory: Number($(row).find(".memory").text().trim().slice(0, -2).trim()),
-        execution_time: Number($(row).find(".spening-time").text().trim().slice(0, -2).trim()),
+        execution_time: Number($(row).find(".spending-time").text().trim().slice(0, -2).trim()),
         code_length: Number($(row).find(".code-length").text().trim().slice(0, -2).trim()),
         language: $(row).find(".language").text().trim(),
         submission_time,

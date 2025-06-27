@@ -171,7 +171,7 @@
       <h1>高光时刻</h1>
       <div class="adaptive-grid">
         <div class="card" v-if="report.most_submitted_problem">
-          <span class="card-description">最多提交次数的题目</span>
+          <span class="card-description">提交次数最多的题目</span>
           <h2>
             {{ report.most_submitted_problem.name }}
             <span
@@ -187,14 +187,14 @@
           <p class="card-main-point">{{ report.most_submitted_problem.count }} 次提交</p>
         </div>
         <div class="card" v-if="report.most_accepted_problem">
-          <span class="card-description">最多通过次数的题目</span>
+          <span class="card-description">通过次数最多的题目</span>
           <h2>
             {{ report.most_accepted_problem.name }}
             <span class="capsule accepted">通过</span>
           </h2>
           <p class="probset">{{ report.most_accepted_problem.pobsets.join(", ") }}</p>
           <p class="card-main-para">
-            反复折磨测评机让它给你吐出 Accepted 一定让你获得了莫大的快感。😈
+            反复折磨测评机让它给你吐出 Accepted 一定让你获得了莫大的快感😈
           </p>
           <p class="card-main-point">{{ report.most_accepted_problem.count }} 次通过</p>
         </div>
@@ -213,10 +213,88 @@
               >{{ report.late_night_submission.result }}</span
             >
           </h2>
+          <span class="probset">{{ report.late_night_submission.contest_name }}</span>
+          <span class="probset"
+            >{{ report.late_night_submission.language }},
+            {{ report.late_night_submission.execution_memory }}kB,
+            {{ report.late_night_submission.execution_time }}ms</span
+          >
           <p class="card-main-para">你见过凌晨四点的测评机吗？我没有😴</p>
           <p class="card-main-point">
             {{ transformTime(report.late_night_submission.submission_time as unknown as string) }}
           </p>
+        </div>
+        <div class="card" v-if="report.smallest_submission">
+          <span class="card-description">小小的也很可爱</span>
+          <h2>
+            {{ report.smallest_submission.problem_name }}
+            <span
+              class="capsule"
+              :style="{
+                color: stringToColor(report.smallest_submission.language),
+                backgroundColor: `rgb(from ${stringToColor(
+                  report.smallest_submission.language,
+                )} r g b / 0.2)`,
+              }"
+              >{{ report.smallest_submission.language }}</span
+            >
+          </h2>
+          <span class="probset">{{ report.smallest_submission.contest_name }}</span>
+          <span class="probset"
+            >{{ report.smallest_submission.language }},
+            {{ report.smallest_submission.execution_memory }}kB,
+            {{ report.smallest_submission.execution_time }}ms</span
+          >
+          <p class="card-main-para">你提交过的最小通过代码，这都能过？🫣</p>
+          <p class="card-main-point">{{ report.smallest_submission.code_length }} 字节</p>
+        </div>
+        <div class="card" v-if="report.most_memory_usage">
+          <span class="card-description">内存大户</span>
+          <h2>
+            {{ report.most_memory_usage.problem_name }}
+            <span
+              class="capsule"
+              :style="{
+                color: stringToColor(report.most_memory_usage.language),
+                backgroundColor: `rgb(from ${stringToColor(
+                  report.most_memory_usage.language,
+                )} r g b / 0.2)`,
+              }"
+              >{{ report.most_memory_usage.language }}</span
+            >
+          </h2>
+          <span class="probset">{{ report.most_memory_usage.contest_name }}</span>
+          <span class="probset"
+            >{{ report.most_memory_usage.language }},
+            {{ report.most_memory_usage.execution_memory }}kB,
+            {{ report.most_memory_usage.execution_time }}ms</span
+          >
+          <p class="card-main-para">通过的提交中内存占用最大的一发。内存？吃一口。好吃再来一口😋</p>
+          <p class="card-main-point">{{ report.most_memory_usage.execution_memory }}kB</p>
+        </div>
+        <div class="card" v-if="report.most_time_consuming">
+          <span class="card-description">时间都去哪了</span>
+          <h2>
+            {{ report.most_time_consuming.problem_name }}
+            <span
+              class="capsule"
+              :style="{
+                color: stringToColor(report.most_time_consuming.language),
+                backgroundColor: `rgb(from ${stringToColor(
+                  report.most_time_consuming.language,
+                )} r g b / 0.2)`,
+              }"
+              >{{ report.most_time_consuming.language }}</span
+            >
+          </h2>
+          <span class="probset">{{ report.most_time_consuming.contest_name }}</span>
+          <span class="probset"
+            >{{ report.most_time_consuming.language }},
+            {{ report.most_time_consuming.execution_memory }}kB,
+            {{ report.most_time_consuming.execution_time }}ms</span
+          >
+          <p class="card-main-para">通过的提交中时间占用最长的一发。快，管理员来卡卡常数⏰</p>
+          <p class="card-main-point">{{ report.most_time_consuming.execution_time }}ms</p>
         </div>
       </div>
     </div>

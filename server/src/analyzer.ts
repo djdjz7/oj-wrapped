@@ -27,14 +27,29 @@ export const analyze = (target: AnalyzeTarget) => {
       ac_count: new DefaultMap((_) => 0),
     },
   )
-  const most_submitted_problem = Linq.max(Object.entries(problem_submission_count), x => x[1])
-  const most_accepted_problem = Linq.max(Object.entries(ac_count), x => x[1])
-  const late_night_submission = Linq.max(target.submissions, x => {
+  const most_submitted_problem = Linq.max(Object.entries(problem_submission_count), (x) => x[1])
+  const most_accepted_problem = Linq.max(Object.entries(ac_count), (x) => x[1])
+  const late_night_submission = Linq.max(target.submissions, (x) => {
     const submission_time = new Date(x.submission_time)
-    return ((submission_time.getUTCHours() + 8 - 6 + 24) % 24) * 3600 +
+    return (
+      ((submission_time.getUTCHours() + 8 - 6 + 24) % 24) * 3600 +
       submission_time.getUTCMinutes() * 60 +
       submission_time.getUTCSeconds()
+    )
   })
+
+  const smallest_submission = Linq.min(
+    target.submissions.filter((x) => x.result === "Accepted"),
+    (x) => x.code_length,
+  )
+  const most_memory_usage = Linq.max(
+    target.submissions.filter((x) => x.result === "Accepted"),
+    (x) => x.execution_memory,
+  )
+  const most_time_consuming = Linq.max(
+    target.submissions.filter((x) => x.result === "Accepted"),
+    (x) => x.execution_time,
+  )
 
   return {
     username: target.username,
@@ -66,15 +81,10 @@ export const analyze = (target: AnalyzeTarget) => {
           ),
         }
       : undefined,
-    late_night_submission: late_night_submission
-      ? {
-          problem_name: late_night_submission.problem_name,
-          contest_name: late_night_submission.contest_name,
-          submission_time: late_night_submission.submission_time,
-          result: late_night_submission.result,
-          probset: late_night_submission.contest_name,
-        }
-      : undefined,
+    late_night_submission: late_night_submission,
+    most_time_consuming,
+    most_memory_usage,
+    smallest_submission,
     result_count,
     lang_submission_count,
     total_submission_count: target.submissions.length,
