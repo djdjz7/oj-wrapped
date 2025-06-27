@@ -1,5 +1,5 @@
 import { crawl } from "./crawler"
-import { DefaultMap } from "./utils"
+import { DefaultMap, Linq } from "./utils"
 
 type AnalyzeTarget = Awaited<ReturnType<typeof crawl>>
 
@@ -27,25 +27,14 @@ export const analyze = (target: AnalyzeTarget) => {
       ac_count: new DefaultMap((_) => 0),
     },
   )
-  const most_submitted_problem = Object.entries(problem_submission_count).sort((a, b) => {
-    return b[1] - a[1]
-  })[0]
-  const most_accepted_problem = Object.entries(ac_count).sort((a, b) => {
-    return b[1] - a[1]
-  })[0]
-  const late_night_submission = target.submissions.sort((a, b) => {
-    const a_time = new Date(a.submission_time)
-    const b_time = new Date(b.submission_time)
-    const a_time_justified =
-      ((a_time.getUTCHours() + 8 - 6 + 24) % 24) * 3600 +
-      a_time.getUTCMinutes() * 60 +
-      a_time.getUTCSeconds()
-    const b_time_justified =
-      ((b_time.getUTCHours() + 8 - 6 + 24) % 24) * 3600 +
-      b_time.getUTCMinutes() * 60 +
-      b_time.getUTCSeconds()
-    return b_time_justified - a_time_justified
-  })[0]
+  const most_submitted_problem = Linq.max(Object.entries(problem_submission_count), x => x[1])
+  const most_accepted_problem = Linq.max(Object.entries(ac_count), x => x[1])
+  const late_night_submission = Linq.max(target.submissions, x => {
+    const submission_time = new Date(x.submission_time)
+    return ((submission_time.getUTCHours() + 8 - 6 + 24) % 24) * 3600 +
+      submission_time.getUTCMinutes() * 60 +
+      submission_time.getUTCSeconds()
+  })
 
   return {
     username: target.username,
@@ -57,7 +46,7 @@ export const analyze = (target: AnalyzeTarget) => {
           pobsets: Array.from(
             new Set(
               target.submissions
-                .filter((x) => x.problem_name === most_accepted_problem[0])
+                .filter((x) => x.problem_name === most_submitted_problem[0])
                 .map((x) => x.contest_name),
             ),
           ),

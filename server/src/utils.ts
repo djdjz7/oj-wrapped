@@ -85,3 +85,18 @@ export class DefaultMap<K extends string | number | symbol, V> {
     return obj
   }
 }
+
+export class Linq {
+  static max = <T>(arr: T[], key: (_: T) => number) => {
+    let cur_max: undefined | T = undefined
+    let cur_max_value: undefined | number = undefined
+    for (const item of arr) {
+      const value = key(item)
+      if (cur_max_value === undefined || value > cur_max_value) {
+        cur_max = item
+        cur_max_value = value
+      }
+    }
+    return cur_max
+  }
+}
