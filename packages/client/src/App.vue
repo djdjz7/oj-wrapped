@@ -1,7 +1,7 @@
 <template>
   <div id="login" class="screen" v-if="status === 'login'">
     <h1>👀看看✌️今年在 OpenJudge 上干了啥👀</h1>
-    <span class="subtle">{{ new Date().getFullYear() }} ver. 🎉</span>
+    <span class="subtle">{{ reportYear }} ver. 🎉</span>
     <input
       type="text"
       v-model="email"
@@ -36,7 +36,7 @@
   <div id="report" v-else v-if="report">
     <div class="screen">
       <h1>{{ report.username }} 的年度 OpenJudge 报告🥳</h1>
-      <span class="subtle">{{ new Date().getFullYear() }} ver. 🎉</span>
+      <span class="subtle">{{ reportYear }} ver. 🎉</span>
       <p>
         今年，你一共提交了<span class="emphasis">{{ report.total_submission_count }} 次</span><br />
         其中<span class="emphasis accepted">{{ report.result_count["Accepted"] }} 次</span
@@ -363,6 +363,20 @@ function transformTime(date_string: string): string {
   return options.format(date)
 }
 
+function getReportYear() {
+  const date = new Date()
+  const year = date.getFullYear()
+  // from 0...
+  const month = date.getMonth() + 1
+  if (month >= 11) {
+    return year
+  } else {
+    return year - 1
+  }
+}
+
+const reportYear = getReportYear()
+
 async function getReport() {
   if (!email.value || !password.value) {
     alert("请输入邮箱和密码")
@@ -373,7 +387,7 @@ async function getReport() {
   const { data, error: err } = await server["get-report"].post({
     email: email.value,
     password: password.value,
-    year: new Date().getFullYear(),
+    year: reportYear,
   })
   error.value = err
   if (err) return
