@@ -1,0 +1,11 @@
+{
+  "name": "oj-wrapped",
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "dependencies": {
+    "elysia": "^1.4.19"
+  }
+}

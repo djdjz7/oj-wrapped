@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "oj-wrapped-client",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -14,25 +14,24 @@
     "lint": "run-s lint:*"
   },
   "dependencies": {
-    "@elysiajs/eden": "^1.3.2",
-    "vue": "^3.5.17"
+    "@elysiajs/eden": "^1.4.6",
+    "vue": "^3.5.26"
   },
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.2",
-    "@types/node": "^22.15.32",
-    "@vitejs/plugin-vue": "^6.0.0",
-    "@vue/eslint-config-typescript": "^14.5.1",
+    "@tsconfig/node22": "^22.0.5",
+    "@types/node": "^22.19.3",
+    "@vitejs/plugin-vue": "^6.0.3",
+    "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.7.0",
-    "elysia": "^1.3.5",
-    "eslint": "^9.29.0",
+    "eslint": "^9.39.2",
     "eslint-plugin-oxlint": "~1.1.0",
     "eslint-plugin-vue": "~10.2.0",
-    "jiti": "^2.4.2",
+    "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "oxlint": "~1.1.0",
-    "typescript": "~5.8.0",
+    "typescript": "~5.8.3",
     "vite": "npm:rolldown-vite@latest",
-    "vite-plugin-vue-devtools": "^7.7.7",
-    "vue-tsc": "^2.2.10"
+    "vite-plugin-vue-devtools": "^7.7.9",
+    "vue-tsc": "^2.2.12"
   }
 }

@@ -325,7 +325,10 @@ const password = ref("")
 const error = ref()
 const server_location = new URL("/api/", window.location.href)
 const server = treaty<ElysiaApp>(server_location.href, {})
-const report = ref<Awaited<ReturnType<(typeof server)["get-report"]["post"]>>["data"]>()
+const report =
+  ref<
+    Exclude<Awaited<ReturnType<(typeof server)["get-report"]["post"]>>["data"], { errors: any }>
+  >()
 const result_stats = computed(() => {
   if (!report.value) return []
   return Object.entries(report.value.result_count).sort((a, b) => {
@@ -374,6 +377,11 @@ async function getReport() {
   })
   error.value = err
   if (err) return
+  if ("errors" in data) {
+    error.value = data.errors.join("; ")
+    status.value = "login"
+    return
+  }
   status.value = "report"
   report.value = data
 }
