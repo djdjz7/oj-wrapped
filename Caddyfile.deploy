@@ -1,11 +1,11 @@
-:3000 {
+https://ojw.illusion.blog {
     handle /api/* {
         uri strip_prefix /api
         reverse_proxy http://localhost:2025
     }
 
     handle {
-        root ./dist/client/
+        root ./client
         file_server
     }
 }

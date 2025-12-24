@@ -6,6 +6,12 @@
   ],
   "private": true,
   "dependencies": {
+    "concurrently": "^9.2.1",
     "elysia": "^1.4.19"
+  },
+  "scripts": {
+    "build:client": "cd packages/client && bunx vite build --emptyOutDir --outDir ../../dist/client/",
+    "build:server": "cd packages/server && bun build --compile --minify-whitespace --minify-syntax --target bun-linux-x64 --outfile ../../dist/server src/index.ts",
+    "build": "concurrently bun:build:client bun:build:server && cp Caddyfile.deploy dist/Caddyfile"
   }
 }
