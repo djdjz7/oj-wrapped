@@ -18,11 +18,11 @@ Output at `./dist`
 
 Note: Server bundle target defaults to bun-linux-x64, modify `package.json` if needed.
 
-# Deploy Dependencies
+## Deploy Dependencies
 
 - Caddy
 
-# Deploy
+## Deploy
 
 1. Copy output directory to target server
 2. Modify Caddyfile
